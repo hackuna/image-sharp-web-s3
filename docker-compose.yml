@@ -1,0 +1,44 @@
+﻿services:
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    hostname: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+      - MINIO_REGION_NAME=local
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  imagestorageproject:
+    image: ${DOCKER_REGISTRY-}image-storage-project
+    container_name: imagestorageproject
+    hostname: imagestorageproject
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ImageStorageProject/Dockerfile
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+      - MINIO_REGION_NAME=local
+      - MINIO_ENDPOINT=http://minio:9000
+      - MINIO_BUCKET=images
+      - MINIO_CACHE_BUCKET=cache
+    depends_on:
+      - minio
+    links:
+      - minio
+
+volumes:
+  minio:

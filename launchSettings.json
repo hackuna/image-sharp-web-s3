@@ -1,0 +1,15 @@
+﻿{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "imagestorageproject",
+      "composeLaunchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/scalar",
+      "serviceActions": {
+        "imagestorageproject": "StartDebugging",
+        "minio": "StartWithoutDebugging"
+      }
+    }
+  }
+}

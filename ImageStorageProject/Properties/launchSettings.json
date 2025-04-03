@@ -1,0 +1,36 @@
+﻿{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MINIO_ROOT_USER": "minioadmin",
+        "MINIO_ROOT_PASSWORD": "minioadmin",
+        "MINIO_REGION_NAME": "local",
+        "MINIO_ENDPOINT": "http://localhost:9000",
+        "MINIO_BUCKET": "images",
+        "MINIO_CACHE_BUCKET": "cache"
+      },
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5189",
+      "launchUrl": "scalar"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/scalar",
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "MINIO_ROOT_USER": "minioadmin",
+        "MINIO_ROOT_PASSWORD": "minioadmin",
+        "MINIO_REGION_NAME": "local",
+        "MINIO_ENDPOINT": "http://minio:9000",
+        "MINIO_BUCKET": "images",
+        "MINIO_CACHE_BUCKET": "cache"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
